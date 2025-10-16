@@ -73,7 +73,7 @@ class Avion extends Vehicule
         echo "Moteur éteint.\n";
     }
 
-    // Accélération on réutilise la règle des 30%
+    // Accélération
     public function accelerer($vitesse)
     {
         if (!$this->demarrer) {
@@ -86,7 +86,8 @@ class Avion extends Vehicule
         if ($this->vitesse == 0) {
             $limite = 10;
         } else {
-            $limite = $this->vitesse * 0.3;
+            // on limite à 70% de la vitesse actuelle
+            $limite = $this->vitesse * 0.7;
         }
 
         if ($vitesse > $limite) {
@@ -245,3 +246,28 @@ class Avion extends Vehicule
         return $chaine;
     }
 }
+
+// ===================== TESTS =====================
+$av1 = new Avion(800, 30000);
+$av1->demarrer();
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->accelerer(100);
+$av1->decoller();
+$av1->monterAltitude(500);
+$av1->rentrerTrain();
+$av1->monterAltitude(3000);
+$av1->accelerer(200);
+$av1->perdreAltitude(3500);
+$av1->decelerer(400);
+
+$av1->sortirTrain();
+$av1->decelerer(50);
+$av1->atterrir();
+$av1->eteindre();
+echo $av1;
