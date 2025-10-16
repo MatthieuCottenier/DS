@@ -13,6 +13,20 @@ $a1 = new Avion([
     'constructeur' => 'Chance Vought Aircraft Division'
 ]);
 
+$a2 = new Avion([
+    'nom' => 'Beluga',
+    'pays' => 'France',
+    'anneeService' => 2025,
+    'constructeur' => 'Airbus'
+]);
+
+$a3 = new Avion([
+    'nom' => 'A380',
+    'pays' => 'France',
+    'anneeService' => 2012,
+    'constructeur' => 'Airbus'
+]);
+
 $manager->add($a1);
 
 // Récupérer tous les avions
