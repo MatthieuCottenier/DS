@@ -68,9 +68,9 @@ class Voiture extends Vehicule
             return;
         }
 
-        //limite l'accélération à 30% de la vitesse actuelle ou 20 km/h si à l'arrêt
+        //limite l'accélération à 30% de la vitesse actuelle ou 10 km/h si à l'arrêt
         if ($this->vitesse == 0) {
-            $limite = 20;
+            $limite = 10;
         } else {
             $limite = $this->vitesse * 0.3;
         }
@@ -95,7 +95,12 @@ class Voiture extends Vehicule
     public function decelerer($vitesse)
     {
         $this->vitesse -= $vitesse;
+        if ($vitesse > 20) {
+            echo "Décelération limitée à 20 km/h maximum.\n";
+            $this->vitesse += ($vitesse - 20);
+        }
         if ($this->vitesse < 0) $this->vitesse = 0;
+        echo "La voiture décélère à {$this->vitesse} km/h.\n";
     }
 
     public function __toString()
@@ -114,4 +119,9 @@ $veh1->demarrer();
 $veh1->accelerer(40);
 $veh1->accelerer(40);
 $veh1->accelerer(20);
+$veh1->accelerer(20);
+$veh1->decelerer(200);
+$veh1->decelerer(200);
+$veh1->decelerer(200);
+$veh1->decelerer(200);
 echo $veh1;
