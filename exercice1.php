@@ -24,6 +24,7 @@ abstract class Vehicule
 class Voiture extends Vehicule 
 {
     private static $nombreVoiture = 0;
+    private $freinStationnement = 0;
 
     public function __construct($vitesseMax)
     {
@@ -68,6 +69,11 @@ class Voiture extends Vehicule
             return;
         }
 
+        if ($this->freinStationnement) {
+            echo "Impossible d'accélérer : le frein de stationnement est activé.\n";
+            return;
+        }
+
         //limite l'accélération à 30% de la vitesse actuelle ou 10 km/h si à l'arrêt
         if ($this->vitesse == 0) {
             $limite = 10;
@@ -103,6 +109,31 @@ class Voiture extends Vehicule
         echo "La voiture décélère à {$this->vitesse} km/h.\n";
     }
 
+    public function activerFreinStationnement()
+{
+    if ($this->vitesse > 0) {
+        echo "Impossible d'activer le frein de stationnement tant que la voiture roule.\n";
+        return;
+    }
+
+    if ($this->freinStationnement) {
+        echo "Le frein de stationnement est déjà activé.\n";
+    } else {
+        $this->freinStationnement = true;
+        echo "Frein de stationnement activé.\n";
+    }
+}
+
+        public function desactiverFreinStationnement()
+        {
+            if (!$this->freinStationnement) {
+                echo "Le frein de stationnement est déjà désactivé.\n";
+            } else {
+                $this->freinStationnement = false;
+                echo "Frein de stationnement désactivé.\n";
+            }
+        }
+
     public function __toString()
     {
         $chaine = parent::__toString();
@@ -116,12 +147,11 @@ class Voiture extends Vehicule
 // === TESTS ===
 $veh1 = new Voiture(110);
 $veh1->demarrer();
-$veh1->accelerer(40);
-$veh1->accelerer(40);
-$veh1->accelerer(20);
-$veh1->accelerer(20);
-$veh1->decelerer(200);
-$veh1->decelerer(200);
-$veh1->decelerer(200);
-$veh1->decelerer(200);
+$veh1->accelerer(10);
+$veh1->accelerer(10);
+$veh1->decelerer(21);
+$veh1->activerFreinStationnement();
+$veh1->accelerer(10);
+$veh1->desactiverFreinStationnement();
+$veh1->accelerer(10);
 echo $veh1;
